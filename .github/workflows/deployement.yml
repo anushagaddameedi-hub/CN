@@ -1,0 +1,25 @@
+name: Deploy with Rollback
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Deploy Application
+      run: |
+        echo "Deploying application..."
+        exit 1   # Simulate failure (remove later)
+
+    - name: Rollback
+      if: failure()
+      run: |
+        echo "Deployment failed!"
+        echo "Rolling back to previous version..."
